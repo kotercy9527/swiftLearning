@@ -95,3 +95,71 @@ for i in 0..<4 {
     total += i
 }
 print(total)
+
+/**函数和闭包**/
+//基本结构
+func greet(person: String, day: String) -> String {
+    return "Hello \(person), today is \(day)."
+}
+greet(person:"Bob", day: "Tuesday")
+
+//参数标签
+func greet(_ person: String, on day: String) -> String {
+    return "Hello \(person), today is \(day)."
+} //day 是参数标签，on是自定义参数标签，如果自定义参数标签的话，那么默认参数标签就不显示了
+greet("John", on: "Wednesday")
+//上面的这两个方法不算重复定义
+
+//返回多个值
+func calculateStatistics(scores: [Int]) -> (min: Int, max: Int, sum: Int) {
+    var min = scores[0]
+    var max = scores[0]
+    var sum = 0
+
+    for score in scores {
+        if score > max {
+            max = score
+        } else if score < min {
+            min = score
+        }
+        sum += score
+    }
+
+    return (min, max, sum)
+}
+let statistics = calculateStatistics(scores:[5, 3, 100, 3, 9])
+print(statistics.sum)
+print(statistics.2)
+
+//函数作为返回值
+func makeIncrementer() -> ((Int) -> Int) {
+    func addOne(number: Int) -> Int {
+        return 1 + number
+    }
+    return addOne
+}
+var increment = makeIncrementer()
+increment(7)
+
+//函数做参数
+func hasAnyMatches(list: [Int], condition: (Int) -> Bool) -> Bool {
+    for item in list {
+        if condition(item) {
+            return true
+        }
+    }
+    return false
+}
+func lessThanTen(number: Int) -> Bool {
+    return number < 10
+}
+var numbers = [20, 19, 7, 12]
+hasAnyMatches(list: numbers, condition: lessThanTen)
+
+//闭包
+var result = numbers.map({
+    (number: Int) -> Int in
+    let result = 3 * number
+    return result
+})
+
