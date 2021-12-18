@@ -386,3 +386,29 @@ func anyCommonElements<T: Sequence, U: Sequence>(_ lhs: T, _ rhs: U) -> Bool
     return false
 }
 anyCommonElements([1, 2, 3], [3])
+
+
+struct GridPoint {
+    var x : Int
+    var y : Int
+}
+
+extension GridPoint:Hashable {
+    
+    //
+   static func == (point1 : GridPoint,point2 : GridPoint )-> Bool {
+       return point1.x == point2.x
+    }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(x)
+        hasher.combine(y)
+    }
+}
+
+var aa = GridPoint(x: 10, y: 10);
+var bb = GridPoint(x: 10, y: 20);
+if (aa == bb) {//
+    print("相等")
+} else {
+    print("不想等")
+}
